@@ -1,21 +1,26 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './App.css';
 
 interface SquareProps {
   idx?: number;
 }
 const Square = (props: SquareProps) => {
   return (
-    <button className="square" onClick={() => { alert("knight") }}>
+    <button
+      className="square"
+      onClick={() => {
+        alert('knight');
+      }}
+    >
       {props.idx}
     </button>
   );
-}
+};
 
 const Board = () => {
   const renderSquare = (idx: number) => {
     return <Square idx={idx} />;
-  }
+  };
 
   const status = 'Next player: X';
 
@@ -39,7 +44,7 @@ const Board = () => {
       </div>
     </div>
   );
-}
+};
 
 const Game = () => {
   return (
@@ -53,6 +58,6 @@ const Game = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Game
+export default Game;
