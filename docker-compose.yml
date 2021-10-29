@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  tic-tac-toe:
+    container_name: tic-tac-toe
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    stdin_open: true
+    command: npm start
