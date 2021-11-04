@@ -9,7 +9,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - '.:/home/node/app'
+      - '/home/node/app/node_modules'
     stdin_open: true
     command: npm start
