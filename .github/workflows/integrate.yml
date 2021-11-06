@@ -18,4 +18,4 @@ jobs:
       run: docker build . --file Dockerfile.dev --tag knightsarai/react-doc-tic-tac-toe
       
     - name: test the app
-      run: docker run knightsarai/react-doc-tic-tac-toe npm run test -- --coverage
+      run: npm run test -- --coverage
