@@ -1,25 +1,28 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
 
 interface SquareProps {
-  idx?: number;
+  value?: string | null;
+  onClick?: () => void;
 }
-const Square = (props: SquareProps) => {
+
+const Square: React.FC<SquareProps> = ({ value, onClick }) => {
   return (
-    <button
-      className="square"
-      onClick={() => {
-        alert('knight');
-      }}
-    >
-      {props.idx}
+    <button className="square" onClick={onClick}>
+      {value}
     </button>
   );
 };
 
-const Board = () => {
+const Board: React.FC = () => {
+  const [squares, setSquares] = useState<string | null[]>(Array(9).fill(null));
+
+  const handleClick = (idx: number) => {
+    setSquares(squares.slice());
+  };
+
   const renderSquare = (idx: number) => {
-    return <Square idx={idx} />;
+    return <Square value={squares[idx]} onClick={() => handleClick(idx)} />;
   };
 
   const status = 'Next player: X';
@@ -46,7 +49,7 @@ const Board = () => {
   );
 };
 
-const Game = () => {
+const Game: React.FC = () => {
   return (
     <div className="game">
       <div className="game-board">
