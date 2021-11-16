@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import calculateWinner from '../helpers/calculateWinner';
 import './App.css';
 
 interface SquareProps {
@@ -15,17 +16,25 @@ const Square: React.FC<SquareProps> = ({ value, onClick }) => {
 };
 
 const Board: React.FC = () => {
-  const [squares, setSquares] = useState<string | null[]>(Array(9).fill(null));
+  const [squares, setSquares] = useState<string[]>(Array(9).fill(''));
+  const [xIsNext, setXIsNext] = useState<boolean>(true);
 
   const handleClick = (idx: number) => {
-    setSquares(squares.slice());
+    if (calculateWinner(squares) || squares[idx]) return;
+    const newSquares = [...squares];
+    newSquares[idx] = xIsNext ? 'X' : 'O';
+    setXIsNext(!xIsNext);
+    setSquares(newSquares);
   };
 
   const renderSquare = (idx: number) => {
     return <Square value={squares[idx]} onClick={() => handleClick(idx)} />;
   };
 
-  const status = 'Next player: X';
+  let status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+
+  const winner = calculateWinner(squares);
+  if (winner) status = 'Winner: ' + winner;
 
   return (
     <div>
@@ -45,6 +54,10 @@ const Board: React.FC = () => {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
+      <br />
+      <button onClick={() => setSquares(Array(9).fill(''))}>
+        Restart The Game
+      </button>
     </div>
   );
 };
